@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  train-test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Retrain (quick search) and log to MLflow
+        run: python -m churn.train --quick
+        env:
+          MLFLOW_DISABLE_AGENT_HINT: "1"
+
+      - name: Tests, including the model quality gate
+        run: python -m pytest -q
+
+      - name: Build the serving image
+        run: docker build -t churn-api .
+
+      - name: Smoke-test the container
+        run: |
+          docker run -d -p 8000:8000 --name api churn-api
+          for i in $(seq 1 20); do curl -sf localhost:8000/health && break; sleep 1; done
+          curl -sf -X POST localhost:8000/predict -H "Content-Type: application/json" \
+            -d @tests/example_customer.json

@@ -1,0 +1,6 @@
+-r requirements-serve.txt
+mlflow==3.18.0
+matplotlib==3.11.2
+scipy==1.17.1
+pytest==9.2.0
+httpx==0.28.1

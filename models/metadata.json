@@ -1,0 +1,42 @@
+{
+  "model": "xgboost_tuned",
+  "mlflow_run_id": "578d58bb9177409a97137296f0785e81",
+  "trained_at": "2026-11-09T18:29:25Z",
+  "train_rows": 5634,
+  "features": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "PhoneService",
+    "PaperlessBilling",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaymentMethod",
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges"
+  ],
+  "metrics": {
+    "cv_roc_auc": 0.8494,
+    "cv_pr_auc": 0.6665,
+    "cv_brier": 0.1334,
+    "cv_log_loss": 0.4113,
+    "test_roc_auc": 0.8461,
+    "test_pr_auc": 0.665,
+    "test_brier": 0.1353,
+    "test_log_loss": 0.4149
+  },
+  "economics": {
+    "offer_cost": 60.0,
+    "save_rate": 0.3,
+    "months_saved": 12
+  }
+}
